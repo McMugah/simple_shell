@@ -1,10 +1,8 @@
 #include "simple.h"
-
 /** parse_command - determines the type of the command
  * @command: command to be parsed
  *
  */
-
 int parser_command(char *commands)
 {
 	int tax;
@@ -28,10 +26,8 @@ int parser_command(char *commands)
 		free(path);
 		return (PATH_COMMAND);
 	}
-
 	return (INVALID_COMMAND);
 }
-
 /**
  * execute_command - executes a command based on it's type
  * @tokenizing_cmd: tokenized form of the command (ls -l == {ls, -l, NULL})
@@ -42,7 +38,6 @@ int parser_command(char *commands)
 void execute_command(char **tokenizing_cmd, int user_typed_command)
 {
 	void (*func)(char **command);
-
 	if (user_typed_command == EXTERNAL_COMMAND)
 	{
 		if (execve(tokenizing_cmd[0], tokenizing_cmd, NULL) == -1)
@@ -110,7 +105,6 @@ char *check_path(char *commands)
 	free(path_arr);
 	return (NULL);
 }
-
 /**
  * get_func - retrieves a function based on the command given and a mapping
  * @command: string to check against the mapping
@@ -121,9 +115,7 @@ void (*get_func(char *commands))(char **)
 {
 	int arr;
 	function_map mapping[] = {
-		{"env", env}, {"exit", quit}
-	};
-
+		{"env", env}, {"exit", quit}};
 	for (arr = 0; arr < 2; arr++)
 	{
 		if (_strcmp(commands, mapping[arr].command_name) == 0)
@@ -140,14 +132,13 @@ void (*get_func(char *commands))(char **)
  */
 char *_getenv(char *name)
 {
-	
 	char *pair_pointers;
 	char *copy_name;
-  char **shell_environ;
+	char **shell_environ;
 	for (shell_environ = environ; *shell_environ != NULL; shell_environ++)
 	{
 		for (pair_pointers = *shell_environ, copy_name = name;
-		     *pair_pointers == *copy_name; pair_pointers++, copy_name++)
+			 *pair_pointers == *copy_name; pair_pointers++, copy_name++)
 		{
 			if (*pair_pointers == '=')
 				break;
