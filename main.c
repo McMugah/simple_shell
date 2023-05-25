@@ -1,9 +1,9 @@
 #include "simple.h"
 
-	char *shell_name = NULL;
-	int status = 0;
-	char **commands = NULL;
-	char *line = NULL;
+char *shell_name = NULL;
+int status = 0;
+char **commands = NULL;
+char *line = NULL;
 
 /**
  * main - the main shell code
@@ -15,7 +15,6 @@
  * Prints error on Failure
  * Return: 0 on success
  */
-
 
 int main(int argc __attribute__((unused)), char **argv)
 {
@@ -34,9 +33,9 @@ int main(int argc __attribute__((unused)), char **argv)
 			free(line);
 			exit(status);
 		}
-			remove_newline(line);
-			remove_comment(line);
-			commands = tokenizer(line, ";");
+		removing_newline(line);
+		removing_comment(line);
+		commands = tokenizer(line, ";");
 
 		for (val = 0; commands[val] != NULL; val++)
 		{
@@ -46,7 +45,7 @@ int main(int argc __attribute__((unused)), char **argv)
 				free(running_cmd);
 				break;
 			}
-			user_typed_command = parse_command(running_cmd[0]);
+			user_typed_command = parser_command(running_cmd[0]);
 
 			/* initializer -   */
 			initializer(running_cmd, user_typed_command);
@@ -58,5 +57,3 @@ int main(int argc __attribute__((unused)), char **argv)
 
 	return (status);
 }
-
-	
