@@ -2,31 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_ALIAS_COUNT 100
-#define MAX_ALIAS_LENGTH 100
-#define MAX_COMMAND_LENGTH 100
+#define MAX_ALIASES 100
+#define MAX_ALIAS_LENGTH 50
 
-/**
- * struct Alias - Represents an alias mapping
- * @name: The name of the alias
- * @value: The value of the alias
- */
-typedef struct Alias
-{
+typedef struct {
 	char name[MAX_ALIAS_LENGTH];
 	char value[MAX_ALIAS_LENGTH];
 } Alias;
 
-Alias aliases[MAX_ALIAS_COUNT];
+Alias aliases[MAX_ALIASES];
 int aliasCount = 0;
 
 /**
- * printAliases - Prints all defined aliases
+ * printAliases - Prints all aliases
  */
 void printAliases(void)
 {
 	int i;
-
 	for (i = 0; i < aliasCount; i++)
 	{
 		printf("%s='%s'\n", aliases[i].name, aliases[i].value);
@@ -34,13 +26,12 @@ void printAliases(void)
 }
 
 /**
- * printAlias - Prints the value of a specific alias
- * @name: The name of the alias to print
+ * printAlias - Prints a specific alias
+ * @name: Name of the alias
  */
-void printAlias(const char *name)
+void printAlias(char *name)
 {
 	int i;
-
 	for (i = 0; i < aliasCount; i++)
 	{
 		if (strcmp(aliases[i].name, name) == 0)
@@ -49,19 +40,16 @@ void printAlias(const char *name)
 			return;
 		}
 	}
-
-	printf("Alias '%s' not found\n", name);
 }
 
 /**
- * setAlias - Sets the value of an alias or creates a new alias
- * @name: The name of the alias to set
- * @value: The value of the alias
+ * setAlias - Sets a new alias or updates an existing alias
+ * @name: Name of the alias
+ * @value: Value of the alias
  */
-void setAlias(const char *name, const char *value)
+void setAlias(char *name, char *value)
 {
 	int i;
-
 	for (i = 0; i < aliasCount; i++)
 	{
 		if (strcmp(aliases[i].name, name) == 0)
@@ -70,72 +58,49 @@ void setAlias(const char *name, const char *value)
 			return;
 		}
 	}
-
-	if (aliasCount == MAX_ALIAS_COUNT)
+	if (aliasCount < MAX_ALIASES)
 	{
-		printf("Maximum number of aliases reached\n");
-		return;
+		strcpy(aliases[aliasCount].name, name);
+		strcpy(aliases[aliasCount].value, value);
+		aliasCount++;
 	}
-
-	strcpy(aliases[aliasCount].name, name);
-	strcpy(aliases[aliasCount].value, value);
-	aliasCount++;
 }
 
 /**
- * parseAlias - Parses and sets an alias from a command
- * @command: The command containing the alias to parse
- */
-void parseAlias(char *command)
-{
-	char *name = strtok(command, "=");
-	char *value = strtok(NULL, "=");
-
-	if (name == NULL || value == NULL)
-	{
-		printf("Invalid alias format\n");
-		return;
-	}
-
-	setAlias(name, value);
-}
-
-/**
- * processCommand - Processes a command and executes the appropriate action
+ * processCommand - Processes the shell command
  * @command: The command to process
+ * Return: 0 if successful, 1 otherwise
  */
-void processCommand(char *command)
+int processCommand(char *command)
 {
-	if (strncmp(command, "alias", 5) == 0)
-	{
-		char *arguments = command + 5;
+	char *name;
+	char *value;
 
-		if (*arguments == '\0')
-		{
-			printAliases();
-		}
-		else if (*arguments == ' ')
-		{
-			char *name = strtok(arguments, " ");
-
-			while (name != NULL)
-			{
-				printAlias(name);
-				name = strtok(NULL, " ");
-			}
-		}
-		else if (*arguments == '=')
-		{
-			parseAlias(arguments + 1);
-		}
-		else
-		{
-			printf("Invalid alias command\n");
-		}
-	}
-	else
+	/* Handle alias command */
+	if (strcmp(command, "alias") == 0)
 	{
-		/* Handle other commands here */
-		printf("Executing command: %s\n", command);
+		printAliases();
+		return 0;
 	}
+
+	/* Handle alias name command */
+	if (strncmp(command, "alias ", 6) == 0)
+	{
+		char *name = strtok(command + 6, " ");
+		printAlias(name);
+		return 0;
+	}
+
+	/* Handle alias name=value command */
+	name = strtok(command, "=");
+	value = strtok(NULL, "");
+	if (name != NULL && value != NULL)
+	{
+		setAlias(name, value);
+		return 0;
+	}
+
+	/* Handle other commands here */
+
+	return 1;
 }
