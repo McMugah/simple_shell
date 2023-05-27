@@ -23,7 +23,7 @@
 #define INVALID_COMMAND -1
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 /**
- *struct map - a struct that maps a command name to a function 
+ *struct map - a struct that maps a command name to a function
  *
  *@command_name: name of the command
  *@func: the function that executes the command
@@ -58,7 +58,7 @@ char *_strchr(char *, char);
 /*helpers3*/
 char *_strtok_r(char *, char *, char **);
 int _atoi(char *);
-void *_realloc(void *pointer, unsigned int previous_size, unsigned int new_size);
+void *_realloc(void *ptr, unsigned int previous_size, unsigned int new_size);
 void handler_ctrl_c(int);
 void removing_comment(char *);
 

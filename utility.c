@@ -1,7 +1,9 @@
 #include "simple.h"
-/** parse_command - determines the type of the command
- * @command: command to be parsed
+/**
+ * parser_command - determines the type of the command
+ * @commands: command to be parsed
  *
+ * Return: integer indicating the type of the command.
  */
 int parser_command(char *commands)
 {
@@ -38,6 +40,7 @@ int parser_command(char *commands)
 void execute_command(char **tokenizing_cmd, int user_typed_command)
 {
 	void (*func)(char **command);
+
 	if (user_typed_command == EXTERNAL_COMMAND)
 	{
 		if (execve(tokenizing_cmd[0], tokenizing_cmd, NULL) == -1)
@@ -71,7 +74,7 @@ void execute_command(char **tokenizing_cmd, int user_typed_command)
 
 /**
  * check_path - checks if a command is found in the PATH
- * @command: command to be used
+ * @commands: command to be used
  *
  * Return: path where the command is found in, NULL if not found
  */
@@ -107,7 +110,7 @@ char *check_path(char *commands)
 }
 /**
  * get_func - retrieves a function based on the command given and a mapping
- * @command: string to check against the mapping
+ * @commands: string to check against the mapping
  *
  * Return: pointer to the proper function, or null on fail
  */
@@ -135,6 +138,7 @@ char *_getenv(char *name)
 	char *pair_pointers;
 	char *copy_name;
 	char **shell_environ;
+
 	for (shell_environ = environ; *shell_environ != NULL; shell_environ++)
 	{
 		for (pair_pointers = *shell_environ, copy_name = name;
