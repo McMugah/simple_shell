@@ -9,6 +9,7 @@
 int _strcmp(char *num1, char *num2)
 {
 	int i = 0;
+
 	while (num1[i] != '\0')
 	{
 		if (num1[i] != num2[i])
@@ -68,6 +69,7 @@ int _strspn(char *q, char *r)
 int _strcspn(char *q, char *r)
 {
 	int len = 0, i;
+
 	for (i = 0; q[i] != '\0'; i++)
 	{
 		if (_strchr(r, q[i]) != NULL)

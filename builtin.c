@@ -24,7 +24,10 @@ void env(char **tokenizing_cmd __attribute__((unused)))
 void quit(char **tokenizing_cmd)
 {
 	int token_1 = 0, arg;
-	for (; tokenizing_cmd[token_1] != NULL; token_1++);
+
+	for (; tokenizing_cmd[token_1] != NULL; token_1++)
+		;
+
 	if (token_1 == 1)
 	{
 		free(tokenizing_cmd);

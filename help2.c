@@ -2,7 +2,7 @@
 /**
  * tokenizer - tokenizes input and stores it into an array
  *@input_value: input to be parsed
- *@delim: delimiter to be used, needs to be one character string
+ *@deliminator: delimiter to be used, needs to be one character string
  *
  *Return: array of tokens
  */
@@ -33,26 +33,27 @@ char **tokenizer(char *input_value, char *deliminator)
 /**
  *print - prints a string to stdout
  *@string_value: string to be printed
- *@stream: stream to print out to
+ *@namespace: stream to print out to
  *
  *Return: void, return nothing
  */
 void print(char *string_value, int namespace)
 {
 	int j = 0;
+
 	for (; string_value[j] != '\0'; j++)
 		write(namespace, &string_value[j], 1);
 }
 /**
- *remove_newline - removes new line from a string
- *@str: string to be used
- *
+ *removing_newline - removes new line from a string
+ *@string: string to be used
  *
  *Return: void
  */
 void removing_newline(char *string)
 {
 	int z = 0;
+
 	while (string[z] != '\0')
 	{
 		if (string[z] == '\n')

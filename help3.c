@@ -10,6 +10,7 @@
 char *_strtok_r(char *str, char *del, char **saving_ptr)
 {
 	char *complete;
+
 	if (str == NULL)
 		str = *saving_ptr;
 	if (*str == '\0')
@@ -42,6 +43,7 @@ char *_strtok_r(char *str, char *del, char **saving_ptr)
 int _atoi(char *string)
 {
 	unsigned int value = 0;
+
 	do {
 		if (*string == '-')
 			return (-1);
@@ -66,6 +68,7 @@ void *_realloc(void *pointer, unsigned int previous_size, unsigned int new_size)
 {
 	void *temp_block;
 	unsigned int temp;
+
 	if (pointer == NULL)
 	{
 		temp_block = malloc(new_size);
@@ -93,7 +96,7 @@ void *_realloc(void *pointer, unsigned int previous_size, unsigned int new_size)
 	}
 }
 /**
- * ctrl_c_handler - handles the signal raised by CTRL-C
+ * handler_ctrl_c - handles the signal raised by CTRL-C
  * @signum: signal number
  *
  * Return: void
@@ -104,7 +107,7 @@ void handler_ctrl_c(int signum)
 		print("\n($) ", STDIN_FILENO);
 }
 /**
- * remove_comment - removes/ignores everything after a '#' char
+ * removing_comment - removes/ignores everything after a '#' char
  * @inputs: inputs to be used
  *
  * Return: void
@@ -112,6 +115,7 @@ void handler_ctrl_c(int signum)
 void removing_comment(char *inputs)
 {
 	int tax = 0;
+
 	if (inputs[tax] == '#')
 		inputs[tax] = '\0';
 	while (inputs[tax] != '\0')
@@ -122,5 +126,3 @@ void removing_comment(char *inputs)
 	}
 	inputs[tax] = '\0';
 }
-
-
