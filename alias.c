@@ -139,30 +139,3 @@ void processCommand(char *command)
 		printf("Executing command: %s\n", command);
 	}
 }
-
-/**
- * main - Entry point of the program
- *
- * Return: 0 on success, otherwise 1
- */
-int main(void)
-{
-	char command[MAX_COMMAND_LENGTH];
-
-	while (1)
-	{
-		printf("Shell > ");
-		fgets(command, sizeof(command), stdin);
-		command[strcspn(command, "\n")] = '\0';
-
-		if (strcmp(command, "exit") == 0)
-		{
-			printf("Exiting shell...\n");
-			break;
-		}
-
-		processCommand(command);
-	}
-
-	return 0;
-}
