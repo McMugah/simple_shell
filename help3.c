@@ -1,7 +1,7 @@
 #include "simple.h"
 /**
  *_strtok_r - tokenizes a string
- *@string: string to be tokenized
+ *@str: string to be tokenized
  *@del: deliter to be used to tokenize the string
  *@saving_ptr: pointer to be used to keep track of the next token
  *
@@ -64,21 +64,21 @@ int _atoi(char *string)
  *
  * Return: pointer to the address of the new memory block
  */
-void *_realloc(void *pointer, unsigned int previous_size, unsigned int new_size)
+void *_realloc(void *ptr, unsigned int previous_size, unsigned int new_size)
 {
 	void *temp_block;
 	unsigned int temp;
 
-	if (pointer == NULL)
+	if (ptr == NULL)
 	{
 		temp_block = malloc(new_size);
 		return (temp_block);
 	}
 	else if (new_size == previous_size)
-		return (pointer);
-	else if (new_size == 0 && pointer != NULL)
+		return (ptr);
+	else if (new_size == 0 && ptr != NULL)
 	{
-		free(pointer);
+		free(ptr);
 		return (NULL);
 	}
 	else
@@ -87,8 +87,8 @@ void *_realloc(void *pointer, unsigned int previous_size, unsigned int new_size)
 		if (temp_block != NULL)
 		{
 			for (temp = 0; temp < min(previous_size, new_size); temp++)
-			*((char *)temp_block + temp) = *((char *)pointer + temp);
-			free(pointer);
+			*((char *)temp_block + temp) = *((char *)ptr + temp);
+			free(ptr);
 			return (temp_block);
 		}
 		else

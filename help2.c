@@ -18,13 +18,15 @@ char **tokenizer(char *input_value, char *deliminator)
 
 	while (mytoken != NULL)
 	{
-		av = _realloc(av, sizeof(*av) * num_deliminator, sizeof(*av) * (num_deliminator + 1));
+		av = _realloc(av, sizeof(*av) * num_deliminator,
+				sizeof(*av) * (num_deliminator + 1));
 		av[num_deliminator] = mytoken;
 		mytoken = _strtok_r(NULL, deliminator, &jeone);
 		num_deliminator++;
 	}
 
-	av = _realloc(av, sizeof(*av) * num_deliminator, sizeof(*av) * (num_deliminator + 1));
+	av = _realloc(av, sizeof(*av) * num_deliminator,
+			sizeof(*av) * (num_deliminator + 1));
 	av[num_deliminator] = NULL;
 
 	return (av);

@@ -10,7 +10,8 @@ void initializer(char **running_cmd, int user_typed_command)
 {
 	pid_t PID;
 
-	if (user_typed_command == EXTERNAL_COMMAND || user_typed_command == PATH_COMMAND)
+	if (user_typed_command == EXTERNAL_COMMAND ||
+			user_typed_command == PATH_COMMAND)
 	{
 		PID = fork();
 		if (PID == 0)
